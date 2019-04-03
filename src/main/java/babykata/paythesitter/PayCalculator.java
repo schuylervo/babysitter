@@ -1,10 +1,14 @@
 package babykata.paythesitter;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class PayCalculator {
 	
-	public int payFromFamilyABetween5pmAnd11pm(int startTime, int endTime) {
-		int hoursWorked = endTime - startTime;
+	
+	public int payFromFamilyABetween5pmAnd11pm(LocalTime startTime, LocalTime endTime) {
+		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
+		int hoursWorked = (int)longHoursWorked;
 		int payRate = 15;
 		int wageEarned = payRate * hoursWorked;
 		return wageEarned;
