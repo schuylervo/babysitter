@@ -62,6 +62,8 @@ public class PayCalculator {
 			
 			LocalTime elevenAtNight = LocalTime.of(23, 0, 0);
 			
+			if (startTime.isBefore(LocalTime.of(23, 0, 0))) {
+			
 			long longHoursWorkedBeforeEleven = ChronoUnit.HOURS.between(startTime, elevenAtNight);
 			int hoursWorkedBeforeEleven = (int)longHoursWorkedBeforeEleven;
 			int payRateBeforeEleven = 15;
@@ -75,6 +77,21 @@ public class PayCalculator {
 			int wageEarnedBetweenElevenAndEndTime = payRateBetweenElevenAndEndTime * hoursWorkedBetweenElevenAndEndTime;
 			
 			return wageEarnedBeforeEleven + wageEarnedBetweenElevenAndEndTime;
+			}
+			
+			
+			else {
+				
+				startTime = startTime.minusHours(12);
+				endTime = endTime.plusHours(12);
+				long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
+				int hoursWorked = (int)longHoursWorked;
+				int payRate = 20;
+				int wageEarned = payRate * hoursWorked;
+				
+				return wageEarned;
+			}
+			
 			
 		} else if (startTime.isAfter(LocalTime.of(22, 59, 59)) && endTime.isBefore(LocalTime.of(23, 59, 59))) {
 			// if startTime is after 11pm and endTime is before midnight, wage will be zero because hours worked is less than 1;
