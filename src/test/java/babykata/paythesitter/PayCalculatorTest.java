@@ -33,12 +33,25 @@ public class PayCalculatorTest {
 	@Test
 	public void WhenSittingForFamilyABetween11pmAnd4amPayIs20PerHour () {
 		PayCalculator payCalculator = new PayCalculator();
-		assertEquals(0, payCalculator.payFromFamilyABetween11pmAnd4am(2, 2));
-		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(11, 12));
-		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(12, 1));
-		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(1, 2));
-		assertEquals(40, payCalculator.payFromFamilyABetween11pmAnd4am(12, 2));
-		assertEquals(100, payCalculator.payFromFamilyABetween11pmAnd4am(11,4));
+		
+		LocalTime time11pm = LocalTime.of(23, 0, 0);
+		LocalTime time1120pm = LocalTime.of(23, 20, 0);
+		LocalTime time1159pm = LocalTime.of(23, 59, 0);
+		LocalTime midnight = LocalTime.of(0, 0, 0);
+		LocalTime time1am = LocalTime.of(1, 0, 0);
+		LocalTime time156am = LocalTime.of(1, 56, 0);
+		LocalTime time4am = LocalTime.of(4, 0, 0);
+		assertEquals(0, payCalculator.payFromFamilyABetween11pmAnd4am(midnight, midnight));
+		assertEquals(0, payCalculator.payFromFamilyABetween11pmAnd4am(time1120pm, time1159pm));
+		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(time11pm, midnight));
+		assertEquals(0, payCalculator.payFromFamilyABetween11pmAnd4am(time1120pm, midnight));
+		assertEquals(0, payCalculator.payFromFamilyABetween11pmAnd4am(time1am, time156am));
+		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(midnight, time1am));
+		assertEquals(20, payCalculator.payFromFamilyABetween11pmAnd4am(midnight, time156am));
+		assertEquals(40, payCalculator.payFromFamilyABetween11pmAnd4am(time1120pm, time156am));
+		assertEquals(80, payCalculator.payFromFamilyABetween11pmAnd4am(time1120pm, time4am));
+		assertEquals(100, payCalculator.payFromFamilyABetween11pmAnd4am(time11pm, time4am));
+		
 	}
 	
 	
