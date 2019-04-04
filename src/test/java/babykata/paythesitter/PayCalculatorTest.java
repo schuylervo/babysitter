@@ -131,14 +131,24 @@ public class PayCalculatorTest {
 		LocalTime time515pm = LocalTime.of(17, 15, 0);
 		LocalTime time545pm = LocalTime.of(17, 45, 0);
 		LocalTime time6pm = LocalTime.of(18, 0, 0);
+		LocalTime time615pm = LocalTime.of(18, 15, 0);
 		LocalTime time7pm = LocalTime.of(19, 0, 0);
-		LocalTime time8pm = LocalTime.of(20, 45, 0);
+		LocalTime time845pm = LocalTime.of(20, 45, 0);
 		LocalTime time10pm = LocalTime.of(22, 0, 0);
 		
 		// test that same start and end times result in no pay
 		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time515pm));
 		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time7pm, time7pm));
 		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time10pm, time10pm));
+		
+		// test whole hours		
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time6pm));
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time615pm));
+		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time7pm));
+		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd10pm(time545pm, time845pm));
+		assertEquals(60, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time10pm));
+				
+
 		
 	}
 }    

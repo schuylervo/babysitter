@@ -123,7 +123,7 @@ public class PayCalculator {
 		
 		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
 		int hoursWorked = (int)longHoursWorked;
-		int payRate = 0;
+		int payRate = 12;
 		int wageEarned = payRate * hoursWorked;
 		return wageEarned;
 	}
