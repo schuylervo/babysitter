@@ -19,13 +19,21 @@ public class PayCalculatorTest {
 		LocalTime time8pm = LocalTime.of(20, 0, 0);
 		LocalTime time10pm = LocalTime.of(22, 0, 0);
 		LocalTime time11pm = LocalTime.of(23, 0, 0);
+		
+		// test to ensure no payment is made if start and end times are the same 
 		assertEquals(0, payCalculator.payFromFamilyABetween5pmAnd11pm(time5pm, time5pm));
+		assertEquals(0, payCalculator.payFromFamilyABetween5pmAnd11pm(time7pm, time7pm));
+		assertEquals(0, payCalculator.payFromFamilyABetween5pmAnd11pm(time545pm, time545pm));
+		
 		// less than one hour on the job should result in no pay
 		assertEquals(0, payCalculator.payFromFamilyABetween5pmAnd11pm(time5pm, time515pm));
-		assertEquals(15, payCalculator.payFromFamilyABetween5pmAnd11pm(time545pm, time7pm));
+		
+		// test whole hours
 		assertEquals(30, payCalculator.payFromFamilyABetween5pmAnd11pm(time6pm, time8pm));
 		assertEquals(45, payCalculator.payFromFamilyABetween5pmAnd11pm(time7pm, time10pm));
-		// 5 hours and 45 minutes on the job should result in 5 hours of pay (round down)
+		
+		// test that fractional hours round down to nearest whole hour
+		assertEquals(15, payCalculator.payFromFamilyABetween5pmAnd11pm(time545pm, time7pm));
 		assertEquals(75, payCalculator.payFromFamilyABetween5pmAnd11pm(time515pm, time11pm));
 		
 	}
@@ -95,7 +103,7 @@ public class PayCalculatorTest {
 	
 	@Test
 	public void WhenSittingForFamilyABetween5pmAnd4amPayIs15PerHourUntil11pmAnd20PerHourThereafterTestTimesStartingAfter5pmAndFinishingAfterMidnight () {
-		// test times before starting after 5pm and finishing after midnight
+		// test times starting on or after 5pm and finishing after midnight
 		
 		PayCalculator payCalculator = new PayCalculator();
 		LocalTime time515pm = LocalTime.of(17, 15, 0);
@@ -114,6 +122,24 @@ public class PayCalculatorTest {
 		assertEquals(80, payCalculator.payFromFamilyABetween5pmAnd4am(time1159pm, time4am));	
 	}
 	
-	
+	@Test
+	public void WhenSittingForFamilyBBetween5pmAnd10pmPayIs12PerHour() {
+		//test times starting on or after 5pm and finishing on or before 10pm
+		PayCalculator payCalculator = new PayCalculator();
+		
+		LocalTime time5pm = LocalTime.of(17, 0, 0);
+		LocalTime time515pm = LocalTime.of(17, 15, 0);
+		LocalTime time545pm = LocalTime.of(17, 45, 0);
+		LocalTime time6pm = LocalTime.of(18, 0, 0);
+		LocalTime time7pm = LocalTime.of(19, 0, 0);
+		LocalTime time8pm = LocalTime.of(20, 45, 0);
+		LocalTime time10pm = LocalTime.of(22, 0, 0);
+		
+		// test that same start and end times result in no pay
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time515pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time7pm, time7pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time10pm, time10pm));
+		
+	}
 }    
     

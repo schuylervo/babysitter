@@ -119,4 +119,14 @@ public class PayCalculator {
 		
 	}
 	
+	public int payFromFamilyBBetween5pmAnd10pm(LocalTime startTime, LocalTime endTime) {
+		
+		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
+		int hoursWorked = (int)longHoursWorked;
+		int payRate = 0;
+		int wageEarned = payRate * hoursWorked;
+		return wageEarned;
+	}
+	
+	
 }
