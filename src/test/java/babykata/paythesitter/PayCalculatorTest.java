@@ -78,8 +78,6 @@ public class PayCalculatorTest {
 	}
 	
 	
-	
-	
 	@Test
 	public void WhenSittingForFamilyABetween5pmAnd4amPayIs15PerHourUntil11pmAnd20PerHourThereafterTestTimesStartingAfter5pmAndFinishingBeforeMidnight () {
 		
@@ -108,18 +106,36 @@ public class PayCalculatorTest {
 		PayCalculator payCalculator = new PayCalculator();
 		LocalTime time515pm = LocalTime.of(17, 15, 0);
 		LocalTime time845pm = LocalTime.of(20, 45, 0);
+		LocalTime time1042pm = LocalTime.of(22, 42, 0);
 		LocalTime time1120pm = LocalTime.of(23, 20, 0);
 		LocalTime time1159pm = LocalTime.of(23, 59, 0);
 		LocalTime time1am = LocalTime.of(1, 0, 0);
 		LocalTime time156am = LocalTime.of(1, 56, 0);
+		LocalTime time330am = LocalTime.of(3, 30, 0);
 		LocalTime time4am = LocalTime.of(4, 0, 0);
 		
+		//test start times after 5pm but before 11pm and end times before 11pm
+		assertEquals(45, payCalculator.payFromFamilyABetween5pmAnd4am(time515pm, time845pm));
+		assertEquals(75, payCalculator.payFromFamilyABetween5pmAnd4am(time515pm, time1042pm));
+		
+		// test start times after 5pm but before and end times between 11pm and midnight
+		// scenario where babysitter spends X hours on job, but should only be paid for X-1 hours because only worked a partial hour after 11pm
+		assertEquals(75, payCalculator.payFromFamilyABetween5pmAnd4am(time515pm, time1120pm));
+		assertEquals(30, payCalculator.payFromFamilyABetween5pmAnd4am(time845pm, time1159pm));
+		
+		// test start times after 5pm and before 11pm but end times after midnight (mixed pay rates of 15 and 20 per hour)
 		assertEquals(115, payCalculator.payFromFamilyABetween5pmAnd4am(time515pm, time1am));
 		assertEquals(70, payCalculator.payFromFamilyABetween5pmAnd4am(time845pm, time1am));
 		assertEquals(70, payCalculator.payFromFamilyABetween5pmAnd4am(time845pm, time156am));
 		assertEquals(130, payCalculator.payFromFamilyABetween5pmAnd4am(time845pm, time4am));
+		
+		// test start times after 11pm but end times after midnight 
 		assertEquals(40, payCalculator.payFromFamilyABetween5pmAnd4am(time1120pm, time156am));
-		assertEquals(80, payCalculator.payFromFamilyABetween5pmAnd4am(time1159pm, time4am));	
+		assertEquals(80, payCalculator.payFromFamilyABetween5pmAnd4am(time1159pm, time4am));
+		
+		// test start times and end times both after midnight
+		assertEquals(40, payCalculator.payFromFamilyABetween5pmAnd4am(time156am, time4am));
+		assertEquals(40, payCalculator.payFromFamilyABetween5pmAnd4am(time1am, time330am));
 	}
 	
 	@Test
@@ -137,25 +153,31 @@ public class PayCalculatorTest {
 		LocalTime time10pm = LocalTime.of(22, 0, 0);
 		
 		// test that same start and end times result in no pay
-		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time515pm));
-		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time7pm, time7pm));
-		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time10pm, time10pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time515pm, time515pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time7pm, time7pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time10pm, time10pm));
 		
 		// test whole hours		
-		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time6pm));
-		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time615pm));
-		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time7pm));
-		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd10pm(time545pm, time845pm));
-		assertEquals(60, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time10pm));
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time6pm));
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd4am(time515pm, time615pm));
+		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time7pm));
+		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd4am(time545pm, time845pm));
+		assertEquals(60, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time10pm));
 		
 		// test fractional hours
-		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time515pm));
-		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time545pm));
-		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time845pm, time10pm));
-		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd10pm(time6pm, time845pm));
-		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time845pm));
-
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time515pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time545pm));
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd4am(time845pm, time10pm));
+		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd4am(time6pm, time845pm));
+		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd4am(time515pm, time845pm));
 		
 	}
+	
+	@Test
+	public void WhenSittingForFamilyBBetween10pmAndMidnightPayIs12PerHour() {
+		
+	}
+	
+	
 }    
     

@@ -119,7 +119,7 @@ public class PayCalculator {
 		
 	}
 	
-	public int payFromFamilyBBetween5pmAnd10pm(LocalTime startTime, LocalTime endTime) {
+	public int payFromFamilyBBetween5pmAnd4am(LocalTime startTime, LocalTime endTime) {
 		
 		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
 		int hoursWorked = (int)longHoursWorked;
