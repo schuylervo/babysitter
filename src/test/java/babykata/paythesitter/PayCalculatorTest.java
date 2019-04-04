@@ -147,7 +147,13 @@ public class PayCalculatorTest {
 		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time7pm));
 		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd10pm(time545pm, time845pm));
 		assertEquals(60, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time10pm));
-				
+		
+		// test fractional hours
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time515pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd10pm(time5pm, time545pm));
+		assertEquals(12, payCalculator.payFromFamilyBBetween5pmAnd10pm(time845pm, time10pm));
+		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd10pm(time6pm, time845pm));
+		assertEquals(36, payCalculator.payFromFamilyBBetween5pmAnd10pm(time515pm, time845pm));
 
 		
 	}
