@@ -4,8 +4,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class PayCalculator {
-	
-	
+		
+
 	
 	public int payFromFamilyABetween5pmAnd11pm(LocalTime startTime, LocalTime endTime) {
 		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
@@ -30,7 +30,9 @@ public class PayCalculator {
 		return wageEarned;
 	}
 	
-	public int payFromFamilyABetween5pmAnd4am(LocalTime startTime, LocalTime endTime) {
+	public int calcPayFromFamilyA(LocalTime startTime, LocalTime endTime) {
+		
+		
 		
 		if (startTime.isAfter(LocalTime.of(16, 59, 59)) && endTime.isBefore(LocalTime.of(23, 0, 1)) && endTime.isAfter(LocalTime.of(16, 59, 59))) {
 			
@@ -40,19 +42,27 @@ public class PayCalculator {
 			int wageEarned = payRate * hoursWorked;
 			return wageEarned;
 			
-		} else if (startTime.isAfter(LocalTime.of(16, 59, 59)) && endTime.isAfter(LocalTime.of(23, 0, 0))) {	
+		} else if (startTime.isAfter(LocalTime.of(16, 59, 59)) && (endTime.isAfter(LocalTime.of(23, 0, 0)) || endTime.equals(LocalTime.MIDNIGHT))) {	
 			
 			// note: this method will return wages earned between 5:00 p.m. and 11:00 p.m. in whole number increments
-			// wages earned between 11pm and 11:59:59pm will be zero because it would be a fraction of an hour.
+			// wages earned between 11pm and 11:59:59pm will be zero because it would be a fraction of an hour at that wage
+			// but if babysitter sits from 11pm to midnight, pay for that period will be $12
+			
 			LocalTime elevenOClock = LocalTime.of(23, 0, 0);
+			int wageEarnedAfterEleven;
+			
 			long longHoursWorkedBeforeEleven = ChronoUnit.HOURS.between(startTime, elevenOClock);
 			int hoursWorkedBeforeEleven = (int)longHoursWorkedBeforeEleven;
 			int payRateBeforeEleven = 15;
 			int wageEarnedBeforeEleven = payRateBeforeEleven * hoursWorkedBeforeEleven;
 			
-			int wageEarnedAfterEleven = 0;
-			
-			return wageEarnedBeforeEleven;
+			if (endTime.equals(LocalTime.MIDNIGHT)) {
+				wageEarnedAfterEleven = 20;
+			} else {
+				wageEarnedAfterEleven = 0;
+			}
+			int wageEarned = wageEarnedBeforeEleven + wageEarnedAfterEleven;
+			return wageEarned;
 			
 			
 		} else if (startTime.isAfter(LocalTime.of(16, 59, 59)) && endTime.isBefore(LocalTime.of(4, 0, 1))) {
@@ -61,19 +71,19 @@ public class PayCalculator {
 			
 			if (startTime.isBefore(LocalTime.of(23, 0, 0))) {
 			
-			long longHoursWorkedBeforeEleven = ChronoUnit.HOURS.between(startTime, elevenAtNight);
-			int hoursWorkedBeforeEleven = (int)longHoursWorkedBeforeEleven;
-			int payRateBeforeEleven = 15;
-			int wageEarnedBeforeEleven = payRateBeforeEleven * hoursWorkedBeforeEleven;
-			
-			LocalTime elevenInMorning = LocalTime.of(11, 0, 0);
-			endTime = endTime.plusHours(12);
-			long longHoursWorkedBetweenElevenAndEndTime = ChronoUnit.HOURS.between(elevenInMorning, endTime);
-			int hoursWorkedBetweenElevenAndEndTime = (int)longHoursWorkedBetweenElevenAndEndTime;
-			int payRateBetweenElevenAndEndTime = 20;
-			int wageEarnedBetweenElevenAndEndTime = payRateBetweenElevenAndEndTime * hoursWorkedBetweenElevenAndEndTime;
-			
-			return wageEarnedBeforeEleven + wageEarnedBetweenElevenAndEndTime;
+				long longHoursWorkedBeforeEleven = ChronoUnit.HOURS.between(startTime, elevenAtNight);
+				int hoursWorkedBeforeEleven = (int)longHoursWorkedBeforeEleven;
+				int payRateBeforeEleven = 15;
+				int wageEarnedBeforeEleven = payRateBeforeEleven * hoursWorkedBeforeEleven;
+				
+				LocalTime elevenInMorning = LocalTime.of(11, 0, 0);
+				endTime = endTime.plusHours(12);
+				long longHoursWorkedBetweenElevenAndEndTime = ChronoUnit.HOURS.between(elevenInMorning, endTime);
+				int hoursWorkedBetweenElevenAndEndTime = (int)longHoursWorkedBetweenElevenAndEndTime;
+				int payRateBetweenElevenAndEndTime = 20;
+				int wageEarnedBetweenElevenAndEndTime = payRateBetweenElevenAndEndTime * hoursWorkedBetweenElevenAndEndTime;
+				
+				return wageEarnedBeforeEleven + wageEarnedBetweenElevenAndEndTime;
 			}
 			
 			
@@ -90,10 +100,10 @@ public class PayCalculator {
 			}
 			
 			
-		} else if (startTime.isAfter(LocalTime.of(22, 59, 59)) && endTime.isBefore(LocalTime.of(23, 59, 59))) {
+		/*} else if (startTime.isAfter(LocalTime.of(22, 59, 59)) && endTime.isBefore(LocalTime.of(23, 59, 59))) {
 			// if startTime is after 11pm and endTime is before midnight, wage will be zero because hours worked is less than 1;
 			
-			return 0;
+			return 0;*/
 			
 		} else if (startTime.isAfter(LocalTime.of(22, 59, 59)) && endTime.isBefore(LocalTime.of(4, 0, 1))) {
 			
@@ -116,7 +126,7 @@ public class PayCalculator {
 		
 	}
 	
-	public int payFromFamilyBBetween5pmAnd4am(LocalTime startTime, LocalTime endTime) {
+	public int calcPayFromFamilyB(LocalTime startTime, LocalTime endTime) {
 		
 		
 		if (startTime.isAfter(LocalTime.of(16, 59, 59)) && startTime.isBefore(LocalTime.of(22, 0)) && (endTime.isAfter(LocalTime.of(16,59,59)) && endTime.isBefore(LocalTime.of(22, 0)) || endTime.equals(LocalTime.of(22, 0)) )) {
@@ -209,7 +219,6 @@ public class PayCalculator {
 			int wageEarnedBetweenMidnightAndEndTime = payRateBetweenMidnightAndEndTime * hoursWorkedBetweenMidnightAndEndTime;
 				
 			int wageEarned = wageEarnedBefore10pm + wageEarnedBetween10pmAndMidnight + wageEarnedBetweenMidnightAndEndTime;
-				
 			return wageEarned;
 			
 		}
@@ -225,33 +234,26 @@ public class PayCalculator {
 			int payRateBetween10pmAndMidnight = 8;
 			int wageEarnedBetween10pmAndMidnight = payRateBetween10pmAndMidnight * hoursWorkedBetween10pmAndMidnight;
 				
-				
 			long longHoursWorkedBetweenMidnightAndEndTime = ChronoUnit.HOURS.between(LocalTime.MIDNIGHT, endTime);
 			int hoursWorkedBetweenMidnightAndEndTime = (int)longHoursWorkedBetweenMidnightAndEndTime;
 			int payRateBetweenMidnightAndEndTime = 16;
 			int wageEarnedBetweenMidnightAndEndTime = payRateBetweenMidnightAndEndTime * hoursWorkedBetweenMidnightAndEndTime;
-				
-			int wageEarned = wageEarnedBetween10pmAndMidnight + wageEarnedBetweenMidnightAndEndTime;
-				
-			return wageEarned;
 			
+			int wageEarned = wageEarnedBetween10pmAndMidnight + wageEarnedBetweenMidnightAndEndTime;
+			return wageEarned;	
 		}
 		
-		
 		else {
-			
 			long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
 			int hoursWorked = (int)longHoursWorked;
 			int payRate = 0;
 			int wageEarned = payRate * hoursWorked;
-			return wageEarned;
-			
+			return wageEarned;	
 		}
-		
 		
 	}
 	
-	public int payFromFamilyCBetween5pmAnd4am(LocalTime startTime, LocalTime endTime) {
+	public int calcPayFromFamilyC(LocalTime startTime, LocalTime endTime) {
 		
 		if (startTime.isAfter(LocalTime.of(16, 59, 59)) && endTime.isAfter(LocalTime.of(16, 59, 59)) && (endTime.isBefore(LocalTime.of(21, 0)) || endTime.equals(LocalTime.of(21, 0))) ) {
 			
