@@ -174,7 +174,28 @@ public class PayCalculatorTest {
 	}
 	
 	@Test
-	public void WhenSittingForFamilyBBetween10pmAndMidnightPayIs12PerHour() {
+	public void WhenSittingForFamilyBBetween10pmAndMidnightPayIs8PerHour() {
+		
+		PayCalculator payCalculator = new PayCalculator();
+		
+		LocalTime time10pm = LocalTime.of(22, 0);
+		LocalTime time1015pm = LocalTime.of(22, 15);
+		LocalTime time1045pm = LocalTime.of(22, 45);
+		LocalTime time11pm = LocalTime.of(23, 0);
+		LocalTime time1115pm = LocalTime.of(23, 15);
+		LocalTime time1159pm = LocalTime.of(23, 59);
+		LocalTime midnight = LocalTime.of(0, 0);
+		
+		// test that same start and end times result in no pay
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time1015pm, time1015pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time11pm, time11pm));
+		assertEquals(0, payCalculator.payFromFamilyBBetween5pmAnd4am(time1159pm, time1159pm));
+		
+		// test whole hours, which result in payment of $8 per hour	
+		assertEquals(8, payCalculator.payFromFamilyBBetween5pmAnd4am(time10pm, time11pm));
+		assertEquals(8, payCalculator.payFromFamilyBBetween5pmAnd4am(time11pm, midnight));
+		assertEquals(16, payCalculator.payFromFamilyBBetween5pmAnd4am(time10pm, midnight));
+		
 		
 	}
 	
