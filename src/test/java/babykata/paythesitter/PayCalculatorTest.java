@@ -272,14 +272,12 @@ public class PayCalculatorTest {
 		LocalTime time615pm = LocalTime.of(18, 15, 0);
 		LocalTime time845pm = LocalTime.of(20, 45, 0);
 		LocalTime time953pm = LocalTime.of(21, 53, 0);
+		LocalTime time10pm = LocalTime.of(22, 0);
 		LocalTime time1045pm = LocalTime.of(22, 45);
 		LocalTime time11pm = LocalTime.of(23, 0);
-		LocalTime time1115pm = LocalTime.of(23, 15);
-		LocalTime time1159pm = LocalTime.of(23, 59);
 		LocalTime midnight = LocalTime.MIDNIGHT;
 		LocalTime time1207am = LocalTime.of(0, 7);
 		LocalTime time1am = LocalTime.of(1, 0);
-		LocalTime time107am = LocalTime.of(1, 07);
 		LocalTime time2am = LocalTime.of(2, 0);
 		LocalTime time330am = LocalTime.of(3, 30);
 		LocalTime time4am = LocalTime.of(4, 0);
@@ -291,6 +289,14 @@ public class PayCalculatorTest {
 		assertEquals(100, payCalculator.payFromFamilyBBetween5pmAnd4am(time615pm, time330am));
 		assertEquals(128, payCalculator.payFromFamilyBBetween5pmAnd4am(time545pm, time4am));
 		assertEquals(140, payCalculator.payFromFamilyBBetween5pmAnd4am(time5pm, time4am));	
+		
+		// test start times between 10pm and midnight and end times after midnight
+		assertEquals(8, payCalculator.payFromFamilyBBetween5pmAnd4am(time1045pm, time1207am));
+		assertEquals(24, payCalculator.payFromFamilyBBetween5pmAnd4am(time1045pm, time1am));
+		assertEquals(40, payCalculator.payFromFamilyBBetween5pmAnd4am(time11pm, time2am));
+		assertEquals(64, payCalculator.payFromFamilyBBetween5pmAnd4am(time10pm, time330am));
+		assertEquals(64, payCalculator.payFromFamilyBBetween5pmAnd4am(midnight, time4am));
+		assertEquals(80, payCalculator.payFromFamilyBBetween5pmAnd4am(time10pm, time4am));
 		
 	}
 	
