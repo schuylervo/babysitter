@@ -143,7 +143,18 @@ public class PayCalculator {
 			int wageEarned = payRate * hoursWorked;
 			return wageEarned;
 			
-		} else {
+		} else if ((startTime.equals(LocalTime.MIDNIGHT) || startTime.isAfter(LocalTime.MIDNIGHT)) && (endTime.isBefore(LocalTime.of(4, 0)) || endTime.equals(LocalTime.of(4, 0)) )){
+			
+			long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
+			int hoursWorked = (int)longHoursWorked;
+			int payRate = 16;
+			int wageEarned = payRate * hoursWorked;
+			return wageEarned;
+			
+		}
+		
+		
+		else {
 			
 			long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
 			int hoursWorked = (int)longHoursWorked;
