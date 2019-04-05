@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class PayCalculator {
 	
 	
+	
 	public int payFromFamilyABetween5pmAnd11pm(LocalTime startTime, LocalTime endTime) {
 		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
 		int hoursWorked = (int)longHoursWorked;
@@ -249,6 +250,18 @@ public class PayCalculator {
 		
 		
 	}
+	
+	public int payFromFamilyCBetween5pmAnd4am(LocalTime startTime, LocalTime endTime) {
+		
+		long longHoursWorked = ChronoUnit.HOURS.between(startTime, endTime);
+		int hoursWorked = (int)longHoursWorked;
+		int payRate = 21;
+		int wageEarned = payRate * hoursWorked;
+		return wageEarned;
+	}
+	
+	
+	
 	
 	
 }
