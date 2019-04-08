@@ -43,40 +43,44 @@ PayCalculatorFamilyC payCalculatorC = new PayCalculatorFamilyC();
 	LocalTime time4am = LocalTime.of(4, 0);
 	
 	
-	
-	
-	
+	@Test
+	public void sameStartAndEndTimeBetween5pmAnd9pm() {
+		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time5pm, time5pm));
+		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time615pm, time615pm));
+	}
 	
 	@Test
-	public void WhenSittingForFamilyCBetween5pmAnd9pmPayIs21PerHour() {
+	public void wholeHoursWorkedBetween5pmAnd9pm() {
+		assertEquals(21, payCalculatorC.calcPayFromFamilyC(time5pm, time6pm));
+		assertEquals(84, payCalculatorC.calcPayFromFamilyC(time5pm, time9pm));
+	}
 	
-	
+	@Test
+	public void partialHoursWorkedBetween5pmAnd9pm() {
 		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time5pm, time515pm));
 		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time515pm, time6pm));
-		assertEquals(21, payCalculatorC.calcPayFromFamilyC(time5pm, time6pm));
 		assertEquals(21, payCalculatorC.calcPayFromFamilyC(time545pm, time7pm));
 		assertEquals(42, payCalculatorC.calcPayFromFamilyC(time615pm, time9pm));
-		assertEquals(84, payCalculatorC.calcPayFromFamilyC(time5pm, time9pm));
-		
 	}
 	
 	@Test
-	public void WhenSittingForFamilyCBetween9pmAndMidnightPayIs15PerHour() {
-	
+	public void wholeHoursBetween9pmAndMidnight() {
 		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time915pm, time915pm));
-		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time9pm, time915pm));
 		assertEquals(15, payCalculatorC.calcPayFromFamilyC(time9pm, time10pm));
 		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time915pm, time1115pm));
-		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time945pm, midnight));
-		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time915pm, time1159pm));
 		assertEquals(45, payCalculatorC.calcPayFromFamilyC(time9pm, midnight));
-		
 	}
 	
 	@Test
-	public void WhenSittingForFamilyCBetween9pmAnd4amPayIs15PerHour() {
+	public void partialHoursBetween9pmAndMidnight() {
+		assertEquals(0, payCalculatorC.calcPayFromFamilyC(time9pm, time915pm));
+		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time945pm, midnight));
+		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time915pm, time1159pm));
+	}
 	
-		// test start times between 9pm and just before and end times between just after midnight and 4am
+	
+	@Test
+	public void startTimesAfter9pmAndEndTimesBetweenMidnightAnd4am() {
 		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time915pm, time1207am));
 		assertEquals(45, payCalculatorC.calcPayFromFamilyC(time9pm, time1207am));
 		assertEquals(30, payCalculatorC.calcPayFromFamilyC(time10pm, time1207am));
@@ -84,18 +88,16 @@ PayCalculatorFamilyC payCalculatorC = new PayCalculatorFamilyC();
 		assertEquals(90, payCalculatorC.calcPayFromFamilyC(time915pm, time330am));
 		assertEquals(60, payCalculatorC.calcPayFromFamilyC(time915pm, time2am));
 		assertEquals(105, payCalculatorC.calcPayFromFamilyC(time9pm, time4am));
-		
-		// test start times between 5pm and just before 9pm and end times between just after midnight and 4am
+	}	
+	@Test
+	public void startTimesBetween5pmAnd9pmAndEndTimesBetweenMidnightAnd4am() {
 		assertEquals(129, payCalculatorC.calcPayFromFamilyC(time5pm, time1207am));
 		assertEquals(108, payCalculatorC.calcPayFromFamilyC(time515pm, time1207am));
 		assertEquals(45, payCalculatorC.calcPayFromFamilyC(time845pm, time1207am));
 		assertEquals(102, payCalculatorC.calcPayFromFamilyC(time7pm, time1am));
 		assertEquals(132, payCalculatorC.calcPayFromFamilyC(time615pm, time330am));
 		assertEquals(138, payCalculatorC.calcPayFromFamilyC(time547pm, time2am));
-		assertEquals(189, payCalculatorC.calcPayFromFamilyC(time5pm, time4am));
-		
+		assertEquals(189, payCalculatorC.calcPayFromFamilyC(time5pm, time4am));	
 	}
-	
-	
 	
 }
