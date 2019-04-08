@@ -6,7 +6,12 @@ import java.time.temporal.ChronoUnit;
 public class PayCalculatorFamilyC {
 
 	public static int wageEarnedBetween5pmAnd9pm(LocalTime startTime, LocalTime endTime) {
-		int hoursWorked = (int) ChronoUnit.HOURS.between(startTime, endTime);
+		int minutesWorked = (int) ChronoUnit.MINUTES.between(startTime, endTime);
+		int hoursWorked = minutesWorked/60;
+		int partialHoursWorked = minutesWorked%60;
+		if (partialHoursWorked>0) {
+			hoursWorked++;
+		}
 		int payRate = 21;
 		return payRate * hoursWorked;
 	}
@@ -16,7 +21,12 @@ public class PayCalculatorFamilyC {
 			startTime = startTime.minusHours(12);
 			endTime = endTime.plusHours(12);
 		}
-		int hoursWorked = (int) ChronoUnit.HOURS.between(startTime, endTime);
+		int minutesWorked = (int) ChronoUnit.MINUTES.between(startTime, endTime);
+		int hoursWorked = minutesWorked/60;
+		int partialHoursWorked = minutesWorked%60;
+		if (partialHoursWorked>0) {
+			hoursWorked++;
+		}
 		int payRate = 15;
 		return payRate * hoursWorked;
 	}

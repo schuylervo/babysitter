@@ -60,11 +60,11 @@ PayCalculatorFamilyB payCalculatorB = new PayCalculatorFamilyB();
 	
 	@Test
 	public void startTimesAndEndTimesBetween5pmAnd10pmPartialHours() {
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(time5pm, time515pm));
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(time5pm, time545pm));
-		assertEquals(12, payCalculatorB.calcPayFromFamilyB(time845pm, time10pm));
-		assertEquals(24, payCalculatorB.calcPayFromFamilyB(time6pm, time845pm));
-		assertEquals(36, payCalculatorB.calcPayFromFamilyB(time515pm, time845pm));	
+		assertEquals(12, payCalculatorB.calcPayFromFamilyB(time5pm, time515pm));
+		assertEquals(12, payCalculatorB.calcPayFromFamilyB(time5pm, time545pm));
+		assertEquals(24, payCalculatorB.calcPayFromFamilyB(time845pm, time10pm));
+		assertEquals(36, payCalculatorB.calcPayFromFamilyB(time6pm, time845pm));
+		assertEquals(48, payCalculatorB.calcPayFromFamilyB(time515pm, time845pm));	
 	}
 	
 	@Test
@@ -83,10 +83,10 @@ PayCalculatorFamilyB payCalculatorB = new PayCalculatorFamilyB();
 	
 	@Test
 	public void startTimesAndEndTimesBetween10pmAndMidnightPartialHours() {
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(time10pm, time1045pm));
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(time1045pm, time1115pm));
-		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time10pm, time1159pm));
-		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time1045pm, midnight));
+		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time10pm, time1045pm));
+		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time1045pm, time1115pm));
+		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time10pm, time1159pm));
+		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time1045pm, midnight));
 	}
 	
 	@Test
@@ -106,48 +106,48 @@ PayCalculatorFamilyB payCalculatorB = new PayCalculatorFamilyB();
 	
 	@Test
 	public void startTimesAndEndTimesBetweenMidnightAnd4amPartialHours() {
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(midnight, time1207am));
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(time107am, time2am));
-		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time1207am, time2am));
-		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time1am, time330am));
-		assertEquals(48, payCalculatorB.calcPayFromFamilyB(time1207am, time4am));	
+		assertEquals(16, payCalculatorB.calcPayFromFamilyB(midnight, time1207am));
+		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time107am, time2am));
+		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time1207am, time2am));
+		assertEquals(48, payCalculatorB.calcPayFromFamilyB(time1am, time330am));
+		assertEquals(64, payCalculatorB.calcPayFromFamilyB(time1207am, time4am));	
 	}
 	
 	@Test
 	public void startTimesBetween5pmAnd10pmAndEndTimesBetween10pmAndMidnight() {
-		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time953pm, time1159pm));
-		assertEquals(20, payCalculatorB.calcPayFromFamilyB(time845pm, time11pm));
-		assertEquals(36, payCalculatorB.calcPayFromFamilyB(time615pm, time1045pm));
-		assertEquals(44, payCalculatorB.calcPayFromFamilyB(time615pm, time1115pm));
-		assertEquals(56, payCalculatorB.calcPayFromFamilyB(time545pm, time11pm));
+		assertEquals(28, payCalculatorB.calcPayFromFamilyB(time953pm, time1159pm));
+		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time845pm, time11pm));
+		assertEquals(56, payCalculatorB.calcPayFromFamilyB(time615pm, time1045pm));
+		assertEquals(64, payCalculatorB.calcPayFromFamilyB(time615pm, time1115pm));
+		assertEquals(68, payCalculatorB.calcPayFromFamilyB(time545pm, time11pm));
 		assertEquals(76, payCalculatorB.calcPayFromFamilyB(time5pm, midnight));	
 	}
 	
 	@Test
 	public void startTimesBetween5pmAnd10pmAndEndTimesBetweenMidnightAnd4am() {  
-		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time953pm, time1207am));
-		assertEquals(44, payCalculatorB.calcPayFromFamilyB(time845pm, time1am));
-		assertEquals(84, payCalculatorB.calcPayFromFamilyB(time615pm, time2am));
-		assertEquals(100, payCalculatorB.calcPayFromFamilyB(time615pm, time330am));
-		assertEquals(128, payCalculatorB.calcPayFromFamilyB(time545pm, time4am));
+		assertEquals(44, payCalculatorB.calcPayFromFamilyB(time953pm, time1207am));
+		assertEquals(56, payCalculatorB.calcPayFromFamilyB(time845pm, time1am));
+		assertEquals(96, payCalculatorB.calcPayFromFamilyB(time615pm, time2am));
+		assertEquals(128, payCalculatorB.calcPayFromFamilyB(time615pm, time330am));
+		assertEquals(140, payCalculatorB.calcPayFromFamilyB(time545pm, time4am));
 		assertEquals(140, payCalculatorB.calcPayFromFamilyB(time5pm, time4am));	
 	}
 	
 	@Test
 	public void startTimesBetween10pmAndMidnightAndEndTimesBetweenMidnightAnd4am() { 
-		assertEquals(8, payCalculatorB.calcPayFromFamilyB(time1045pm, time1207am));
-		assertEquals(24, payCalculatorB.calcPayFromFamilyB(time1045pm, time1am));
+		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time1045pm, time1207am));
+		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time1045pm, time1am));
 		assertEquals(40, payCalculatorB.calcPayFromFamilyB(time11pm, time2am));
-		assertEquals(64, payCalculatorB.calcPayFromFamilyB(time10pm, time330am));
+		assertEquals(80, payCalculatorB.calcPayFromFamilyB(time10pm, time330am));
 		assertEquals(64, payCalculatorB.calcPayFromFamilyB(midnight, time4am));
 		assertEquals(80, payCalculatorB.calcPayFromFamilyB(time10pm, time4am));
 	}	
 	
 	@Test
 	public void startTimesBetweenMidnightAnd4am() {
-		assertEquals(0, payCalculatorB.calcPayFromFamilyB(midnight, time1207am));
+		assertEquals(16, payCalculatorB.calcPayFromFamilyB(midnight, time1207am));
 		assertEquals(16, payCalculatorB.calcPayFromFamilyB(time1am, time2am));
-		assertEquals(32, payCalculatorB.calcPayFromFamilyB(time1am, time330am));
+		assertEquals(48, payCalculatorB.calcPayFromFamilyB(time1am, time330am));
 		assertEquals(48, payCalculatorB.calcPayFromFamilyB(time1am, time4am));
 		assertEquals(64, payCalculatorB.calcPayFromFamilyB(midnight, time4am));
 	}

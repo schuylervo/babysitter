@@ -6,19 +6,38 @@ import java.time.temporal.ChronoUnit;
 public class PayCalculatorFamilyB {
 
 	public static int wageEarnedBetween5pmAnd10pm(LocalTime startTime, LocalTime endTime) {
-		int hoursWorked = (int) ChronoUnit.HOURS.between(startTime, endTime);
+		int minutesWorked = (int) ChronoUnit.MINUTES.between(startTime, endTime);
+		int hoursWorked = minutesWorked/60;
+		int partialHoursWorked = minutesWorked%60;
+		if (partialHoursWorked>0) {
+			hoursWorked++;
+		}
 		int payRate = 12;
 		return payRate * hoursWorked;
 	}
 	
 	public static int wageEarnedBetween10pmAndMidnight(LocalTime startTime, LocalTime endTime) {
-		int hoursWorked = (int) ChronoUnit.HOURS.between(startTime, endTime);
+		if(endTime.equals(LocalTime.MIDNIGHT)) {
+			startTime = startTime.minusHours(12);
+			endTime = endTime.plusHours(12);
+		}
+		int minutesWorked = (int) ChronoUnit.MINUTES.between(startTime, endTime);
+		int hoursWorked = minutesWorked/60;
+		int partialHoursWorked = minutesWorked%60;
+		if (partialHoursWorked>0) {
+			hoursWorked++;
+		}
 		int payRate = 8;
 		return payRate * hoursWorked;
 	}
 	
 	public static int wageEarnedBetweenMidnightAnd4am(LocalTime startTime, LocalTime endTime) {
-		int hoursWorked = (int) ChronoUnit.HOURS.between(startTime, endTime);
+		int minutesWorked = (int) ChronoUnit.MINUTES.between(startTime, endTime);
+		int hoursWorked = minutesWorked/60;
+		int partialHoursWorked = minutesWorked%60;
+		if (partialHoursWorked>0) {
+			hoursWorked++;
+		}
 		int payRate = 16;
 		return payRate * hoursWorked;
 	}
@@ -42,7 +61,7 @@ public class PayCalculatorFamilyB {
 				
 				LocalTime tenOClockAtNight = LocalTime.of(22, 0);
 				int wageEarnedBefore10pm = wageEarnedBetween5pmAnd10pm(startTime, tenOClockAtNight);
-				int wageEarnedBetween10pmAndMidnight = 16;
+				final int wageEarnedBetween10pmAndMidnight = 16;
 				return wageEarnedBefore10pm + wageEarnedBetween10pmAndMidnight;
 				
 			} else {
@@ -58,10 +77,7 @@ public class PayCalculatorFamilyB {
 		else if (startTime.isAfter(LocalTime.of(21, 59, 59)) && (endTime.isAfter(LocalTime.of(21, 59, 59)) &&
 				(endTime.isBefore(LocalTime.of(23, 59, 59)) || endTime.equals(LocalTime.MIDNIGHT)))) {
 			
-			if(endTime.equals(LocalTime.MIDNIGHT)) {
-				startTime = startTime.minusHours(12);
-				endTime = endTime.plusHours(12);
-			}
+			
 			
 			return wageEarnedBetween10pmAndMidnight(startTime, endTime);
 			
