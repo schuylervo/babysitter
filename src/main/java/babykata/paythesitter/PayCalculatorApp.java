@@ -8,7 +8,9 @@ public class PayCalculatorApp {
 	public static void main(String[] args) {
 		
 		Scanner scnr = new Scanner(System.in);
-		PayCalculator payCalculator = new PayCalculator();
+		PayCalculatorFamilyA payCalculatorA = new PayCalculatorFamilyA();
+		PayCalculatorFamilyB payCalculatorB = new PayCalculatorFamilyB();
+		PayCalculatorFamilyC payCalculatorC = new PayCalculatorFamilyC();
 		
 		String familyLetter = "";
 		String regex = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
@@ -19,12 +21,9 @@ public class PayCalculatorApp {
 		boolean timeEntryValid = false;
 		
 		
-		
-		
-		while (!(familyLetter.equals("A") || familyLetter.equals("B") || familyLetter.equals("C") ||
-				familyLetter.equals("a") || familyLetter.equals("b") || familyLetter.equals("c"))) {	
+		while (!(familyLetter.equalsIgnoreCase("A") || familyLetter.equalsIgnoreCase("B") || familyLetter.equalsIgnoreCase("C"))) {	
 			
-			familyLetter = getString( scnr, "Please enter letter of babysitting family that employed you (A, B or C)");	
+			familyLetter = getString( scnr, "Please enter letter of babysitting family that employed you (A, B or C):");	
 		}
 		
 		
@@ -49,11 +48,11 @@ public class PayCalculatorApp {
 			endTime = LocalTime.parse(endingTime12hour);
 			
 			if (startingTimeOfDay.contains("p")) {
-				startTime.plusHours(12);
+				startTime = startTime.plusHours(12);
 			}
 			
 			if (endingTimeOfDay.contains("p")) {
-				endTime.plusHours(12);
+				endTime = endTime.plusHours(12);
 			}
 			
 			
@@ -82,22 +81,22 @@ public class PayCalculatorApp {
 			
 			}
 		
-		} while (timeEntryValid=false);
+		} while (!timeEntryValid);
 		
 		
 		
 		String family= familyLetter.toLowerCase();
 		
 		if (family.equals("a")) {
-			payCalculator.calcPayFromFamilyA(startTime, endTime);
+			payCalculatorA.calcPayFromFamilyA(startTime, endTime);
 		}
 		
 		else if (family.equals("b")) {
-			payCalculator.calcPayFromFamilyB(startTime, endTime);
+			payCalculatorB.calcPayFromFamilyB(startTime, endTime);
 		}
 		
 		else { 
-			payCalculator.calcPayFromFamilyC(startTime, endTime);
+			payCalculatorC.calcPayFromFamilyC(startTime, endTime);
 		}
 		
 		
@@ -128,6 +127,6 @@ public class PayCalculatorApp {
 		
 		} while (!isValid);
 		return input;
-}
+	}
 
 }
