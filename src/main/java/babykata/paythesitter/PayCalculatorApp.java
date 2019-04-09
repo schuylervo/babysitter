@@ -39,20 +39,17 @@ public class PayCalculatorApp {
 			}
 			
 			
-			String startingTime12hour = startString.substring(0, 5);
-			String endingTime12hour = endString.substring(0,5);
-			String startingTimeOfDay = startString.substring(5);
-			String endingTimeOfDay = endString.substring(5);
-			
+			String startingTime12hour = getTimeSubstring(startString);
+			String endingTime12hour = getTimeSubstring(endString);
 			
 			startTime = LocalTime.parse(startingTime12hour);
 			endTime = LocalTime.parse(endingTime12hour);
 			
-			if (startingTimeOfDay.contains("p")) {
+			if (startString.contains("p")) {
 				startTime = startTime.plusHours(12);
 			}
 			
-			if (endingTimeOfDay.contains("p")) {
+			if (endString.contains("p")) {
 				endTime = endTime.plusHours(12);
 			}
 			
@@ -128,6 +125,14 @@ public class PayCalculatorApp {
 		
 		} while (!isValid);
 		return input;
+	}
+	
+	public static String getTimeSubstring(String userString) {
+		if ((userString.startsWith("10")) || (userString.startsWith("11"))|| (userString.startsWith("12"))) {
+			return userString.substring(0, 5);
+		} else {
+			return userString.substring(0, 4);
+		}
 	}
 
 }

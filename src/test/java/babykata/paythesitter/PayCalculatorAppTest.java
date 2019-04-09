@@ -23,6 +23,16 @@ public class PayCalculatorAppTest {
 		assertEquals(false, PayCalculatorApp.isTimeEntryValid(LocalTimeConstants.time4pm, LocalTimeConstants.time5am)); 
 	}
 	
+	@Test
+	public void doesTheSubstringMethodReturnTheUsersTimeStringWithoutAMorPM() {
+		assertEquals("6:06", PayCalculatorApp.getTimeSubstring("6:06pm"));
+		assertEquals("10:12", PayCalculatorApp.getTimeSubstring("10:12 pm"));
+		assertEquals("3:12", PayCalculatorApp.getTimeSubstring("3:12 am"));
+		assertEquals("7:48", PayCalculatorApp.getTimeSubstring("7:48am"));
+		assertEquals("11:35", PayCalculatorApp.getTimeSubstring("11:35 p"));
+		assertEquals("12:56", PayCalculatorApp.getTimeSubstring("12:56a"));
+	}
+	
 	
 	
 }
