@@ -66,10 +66,10 @@ public class PayCalculatorApp {
 		String family= familyLetter.toLowerCase();
 		
 		if (family.equals("a")) {
-			System.out.println("Thank you for babbysitting for Family A. You earned $" +payCalculatorA.calcPayFromFamilyA(startTime, endTime) + ".");
+			System.out.println("Thank you for babbysitting for Family A. You earned $" + payCalculatorA.calcPayFromFamilyA(startTime, endTime) + ".");
 		}
 		else if (family.equals("b")) {
-			System.out.print("Thank you for babysitting for Family B. You earned $" +payCalculatorB.calcPayFromFamilyB(startTime, endTime) + ".");
+			System.out.print("Thank you for babysitting for Family B. You earned $" + payCalculatorB.calcPayFromFamilyB(startTime, endTime) + ".");
 		}
 		else { 
 			System.out.println("Thank you for babysitting for Family C. You earned $" + payCalculatorC.calcPayFromFamilyC(startTime, endTime)+ ".");
