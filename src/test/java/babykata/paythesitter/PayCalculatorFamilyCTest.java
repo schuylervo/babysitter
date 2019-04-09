@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-public class PayCalculatorTestFamilyC {
+public class PayCalculatorFamilyCTest {
 
 PayCalculatorFamilyC payCalculatorC = new PayCalculatorFamilyC();
 	
@@ -89,6 +89,7 @@ PayCalculatorFamilyC payCalculatorC = new PayCalculatorFamilyC();
 		assertEquals(75, payCalculatorC.calcPayFromFamilyC(time915pm, time2am));
 		assertEquals(105, payCalculatorC.calcPayFromFamilyC(time9pm, time4am));
 	}	
+	
 	@Test
 	public void startTimesBetween5pmAnd9pmAndEndTimesBetweenMidnightAnd4am() {
 		assertEquals(144, payCalculatorC.calcPayFromFamilyC(time5pm, time1207am));

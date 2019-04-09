@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-public class PayCalculatorTestFamilyA {
+public class PayCalculatorFamilyATest {
 	
 	PayCalculatorFamilyA payCalculatorA = new PayCalculatorFamilyA();
 	

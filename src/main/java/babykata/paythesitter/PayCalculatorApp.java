@@ -21,7 +21,8 @@ public class PayCalculatorApp {
 		boolean timeEntryValid = false;
 		
 		
-		while (!(familyLetter.equalsIgnoreCase("A") || familyLetter.equalsIgnoreCase("B") || familyLetter.equalsIgnoreCase("C"))) {	
+		while (!(familyLetter.equalsIgnoreCase("A") || familyLetter.equalsIgnoreCase("B") ||
+				familyLetter.equalsIgnoreCase("C"))) {	
 			
 			familyLetter = getString( scnr, "Please enter letter of babysitting family that employed you (A, B or C):");	
 		}
@@ -55,31 +56,8 @@ public class PayCalculatorApp {
 				endTime = endTime.plusHours(12);
 			}
 			
+			timeEntryValid= isTimeEntryValid(startTime, endTime);
 			
-			if ((startTime.isAfter(LocalTime.of(4,0))) && (startTime.isBefore(LocalTime.of(17, 0)))) {
-				System.out.println("Invalid start time.");
-				timeEntryValid = false;
-			}
-			else if ((endTime.isAfter(LocalTime.of(4,0))) && (endTime.isBefore(LocalTime.of(17, 0)))) {	
-				System.out.println("Invalid end time.");
-				timeEntryValid = false;
-			}
-			else if (startTime.isAfter(endTime) && startTime.isAfter(LocalTime.of(16, 59, 59)) && endTime.isAfter(LocalTime.of(16, 59, 59))) {
-				System.out.println("Invalid time entries.");
-				timeEntryValid = false;
-			}
-			else if (startTime.isAfter(endTime) && startTime.isBefore(LocalTime.of(4,0,1)) && endTime.isBefore(LocalTime.of(4, 0, 1))) {
-				System.out.println("Invalid time entries.");
-				timeEntryValid = false;
-			}
-			else if (startTime.isBefore(LocalTime.of(4,0,1)) && endTime.isAfter(LocalTime.of(16, 59, 59))) {
-				System.out.println("Invalid time entries.");
-				timeEntryValid = false;	
-			} 
-			else {
-				timeEntryValid = true;
-			
-			}
 		
 		} while (!timeEntryValid);
 		
@@ -90,19 +68,42 @@ public class PayCalculatorApp {
 		if (family.equals("a")) {
 			payCalculatorA.calcPayFromFamilyA(startTime, endTime);
 		}
-		
 		else if (family.equals("b")) {
 			payCalculatorB.calcPayFromFamilyB(startTime, endTime);
 		}
-		
 		else { 
 			payCalculatorC.calcPayFromFamilyC(startTime, endTime);
 		}
 		
-		
 	}
 		
-		
+	public static boolean isTimeEntryValid(LocalTime startTime, LocalTime endTime) {
+		if ((startTime.isAfter(LocalTime.of(4,0))) && (startTime.isBefore(LocalTime.of(17, 0)))) {
+			System.out.println("Invalid start time.");
+			return false;
+		}
+		else if ((endTime.isAfter(LocalTime.of(4,0))) && (endTime.isBefore(LocalTime.of(17, 0)))) {	
+			System.out.println("Invalid end time.");
+			return false;
+		}
+		else if (startTime.isAfter(endTime) && startTime.isAfter(LocalTime.of(16, 59, 59)) &&
+				endTime.isAfter(LocalTime.of(16, 59, 59))) {
+			System.out.println("Invalid time entries.");
+			return false;
+		}
+		else if (startTime.isAfter(endTime) && startTime.isBefore(LocalTime.of(4,0,1)) &&
+				endTime.isBefore(LocalTime.of(4, 0, 1))) {
+			System.out.println("Invalid time entries.");
+			return false;
+		}
+		else if (startTime.isBefore(LocalTime.of(4,0,1)) && endTime.isAfter(LocalTime.of(16, 59, 59))) {
+			System.out.println("Invalid time entries.");
+			return false;
+		} 
+		else {
+			return true;
+		}
+	}
 
 	public static String getString(Scanner scnr, String prompt) {
 		
