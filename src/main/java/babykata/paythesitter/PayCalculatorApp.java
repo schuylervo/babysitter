@@ -55,6 +55,9 @@ public class PayCalculatorApp {
 			
 			timeEntryValid= isTimeEntryValid(startTime, endTime);
 			
+			startString = "";
+			endString = "";
+			
 		
 		} while (!timeEntryValid);
 		
@@ -131,7 +134,7 @@ public class PayCalculatorApp {
 		if ((userString.startsWith("10")) || (userString.startsWith("11"))|| (userString.startsWith("12"))) {
 			return userString.substring(0, 5);
 		} else {
-			return userString.substring(0, 4);
+			return "0" + userString.substring(0, 4);
 		}
 	}
 
